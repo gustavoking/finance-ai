@@ -33,6 +33,14 @@ import {
 } from "./ui/form";
 
 import { Input } from "./ui/input";
+import { MoneyInput } from "./money-input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, {
@@ -74,13 +82,13 @@ const AddTransactionButton = () => {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="rounded-full font-bold">
+          <Button className="items-center justify-center rounded-full font-bold">
             Adicionar Transação
             <ArrowDownUp className="ml-1" />
           </Button>
         </DialogTrigger>
         <DialogContent>
-          <DialogHeader>
+          <DialogHeader className="items-center">
             <DialogTitle>Adicionar Transação</DialogTitle>
             <DialogDescription>Insira as informações abaixo</DialogDescription>
           </DialogHeader>
@@ -92,7 +100,7 @@ const AddTransactionButton = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Histórico</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Histórico da Transação..."
@@ -105,6 +113,52 @@ const AddTransactionButton = () => {
                 )}
               />
 
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Valor</FormLabel>
+                    <FormControl>
+                      <MoneyInput placeholder="Digite o valor..." {...field} />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tipo</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="m@example.com">
+                          m@example.com
+                        </SelectItem>
+                        <SelectItem value="m@google.com">
+                          m@google.com
+                        </SelectItem>
+                        <SelectItem value="m@support.com">
+                          m@support.com
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <DialogFooter>
                 <Button variant="outline">Cancelar</Button>
                 <Button className="hover:bg-green-800">Adicionar</Button>
