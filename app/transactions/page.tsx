@@ -5,6 +5,7 @@ import AddTransactionButton from "../_components/add-transaction-button";
 import NavBar from "../_components/navbar";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { ScrollArea } from "../_components/ui/scroll-area";
 
 const TransactionsPage = async () => {
   const { userId } = await auth();
@@ -23,7 +24,9 @@ const TransactionsPage = async () => {
           <h1 className="text-2xl font-bold">Transações</h1>
           <AddTransactionButton />
         </div>
-        <DataTable columns={transactionColumns} data={transactions} />
+        <ScrollArea>
+          <DataTable columns={transactionColumns} data={transactions} />
+        </ScrollArea>
       </div>
     </>
   );
