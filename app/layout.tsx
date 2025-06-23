@@ -3,6 +3,7 @@ import { Mulish } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { Toaster } from "./_components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,6 +29,7 @@ export default function RootLayout({
         >
           <div className="flex h-full flex-col overflow-hidden">{children}</div>
         </ClerkProvider>
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );
