@@ -11,5 +11,11 @@ export const upsertTransactionSchema = z.object({
   type: z.nativeEnum(TransactionType),
   category: z.nativeEnum(TransactionCategory),
   paymentMethod: z.nativeEnum(TransactionPaymentMethod),
-  date: z.date(),
+  date: z.preprocess((val) => {
+    if (typeof val === "string" || typeof val === "number") {
+      const parsed = new Date(val);
+      return isNaN(parsed.getTime()) ? undefined : parsed;
+    }
+    return val;
+  }, z.date()),
 });
